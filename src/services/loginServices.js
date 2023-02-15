@@ -1,5 +1,5 @@
 /* require('dotenv/config');
-const jwt = require('jsonwebtoken'); */
+const jwt = require('jsonwebtoken');  */
 const { User } = require('../models');
 /* const { JWT_SECRET } = process.env; */
 

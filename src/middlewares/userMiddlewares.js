@@ -1,4 +1,6 @@
 const express = require('express');
+require('dotenv/config');
+const jwt = require('jsonwebtoken');
 
 const app = express();
 
@@ -6,16 +8,17 @@ app.use(express.json());
 
 const regex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
-/* const { userSchema } = require('./schema');
-
-const validationUser = async (request, response, next) => {
-  const newUser = request.body;
-  const { error } = userSchema.validate(newUser);
-  if (error) {
-      return response.status(400).json({ message: error.message }); 
+const validationToken = async (request, response, next) => {
+  const token = request.header('Authorization');
+  if (!token) return response.status(401).json({ message: 'Token not found' });
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    request.user = decoded.data;
+    next();
+  } catch (error) {
+    return response.status(401).json({ message: 'Expired or invalid token' });
   }
-  next();
-}; */
+};
 
 const validationUser = (request, response, next) => {
   const { displayName, email, password } = request.body;
@@ -33,8 +36,11 @@ const validationUser = (request, response, next) => {
     return response.status(400).json({
       message: '"password" length must be at least 6 characters long',
     });
-}
-return next();
+  }
+  return next();
 };
 
-module.exports = { validationUser };
+module.exports = {
+  validationUser,
+  validationToken,
+};

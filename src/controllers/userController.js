@@ -5,4 +5,22 @@ const { status, message } = await userServices.create(request.body);
 return response.status(status).json(message);
 };
 
-module.exports = { newUser };
+const getAllUser = async (_request, response) => {
+    const users = await userServices.getAllUser();
+    return response.status(200).json(users);
+};
+
+const getUserId = async (request, response) => {
+    const { id } = request.params;
+    const user = await userServices.getUserId(id);
+    if (!user) return response.status(404).json({ message: 'User does not exist' });
+return response.status(200).json(user);
+};
+
+module.exports = { 
+    newUser,
+    getAllUser,
+    getUserId,
+};
+
+/* request.user.id; */

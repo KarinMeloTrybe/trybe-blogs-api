@@ -25,7 +25,20 @@ const create = async (body) => {
     return { status: 409, message: { message: 'User already registered' } };
 };
 
+const getAllUser = async () => {
+    const users = await User.findAll({ attributes: { exclude: ['password'] } });
+    return users;
+};
+
+const getUserId = async (id) => {
+    const user = await User.findOne({ where: { id }, attributes: { exclude: ['password'] } });
+    if (!user) return null;
+    return user;
+};
+
 module.exports = {
     create,
     getEmail,
+    getAllUser,
+    getUserId,
 };

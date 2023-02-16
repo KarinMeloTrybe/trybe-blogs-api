@@ -4,7 +4,7 @@ const app = express();
 
 app.use(express.json());
 
-const loginSchema = require('./schema');
+const { loginSchema } = require('./schema');
 
 const validationLogin = async (request, response, next) => {
   const userLogin = request.body;

@@ -8,4 +8,12 @@ const newCategory = async (name) => { // dava pra ser body ao inves de name?
     return createCategory;
 };
 
-module.exports = { newCategory };
+const getAllCategories = async (name) => {
+    const category = await Category.findAll({ name });
+    return category;
+};
+
+module.exports = {
+    newCategory,
+    getAllCategories,
+};

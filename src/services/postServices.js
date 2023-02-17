@@ -80,8 +80,13 @@ const editPost = async ({ title, content }, id) => {
   return result;
 };
 
+const deletePost = async (id) => {
+  await BlogPost.destroy({ where: { id } });
+};
+
 module.exports = {
   getAllPost,
   getIdPost,
   editPost,
+  deletePost,
 };

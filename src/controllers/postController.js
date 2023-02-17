@@ -39,9 +39,24 @@ const editPost = async (request, response) => {
     return response.status(200).json(message);
 };
 
+const deletePost = async (request, response) => {
+    const { id } = request.params;
+    const { user } = request;
+    console.log(user.id);
+    const { type, message } = await postServices.getIdPost(id);
+    console.log(message);
+    if (type) return response.status(404).json({ message: 'Post does not exist' });
+    if (user.id !== message.dataValues.userId) {
+      return response.status(401).json({ message: 'Unauthorized user' });
+    }
+    await postServices.deletePost(id);
+    return response.status(204).json();
+  };
+
 module.exports = {
     /*  newPost, */
     getAllPost,
     getIdPost,
     editPost,
+    deletePost,
 };

@@ -14,4 +14,6 @@ postRoute.get('/:id', validationToken, postController.getIdPost);
 
 postRoute.put('/:id', validationToken, validationUpdate, postController.editPost);
 
+postRoute.delete('/:id', validationToken, postController.deletePost);
+
 module.exports = { postRoute };

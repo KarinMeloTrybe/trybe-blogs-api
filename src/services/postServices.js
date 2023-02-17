@@ -20,7 +20,7 @@ const validationCategoryIds = async (categoryIds) => {
 };
 
 const newPost = async ({ title, content, categoryIds }, token) => {
-   const { data: { id } } = validationToken(token);
+   const { data: { dataValues: { id } } } = validationToken(token);
   const result = await validationCategoryIds(categoryIds);
     if (!result) return { type: 'error', message: 'one or more "categoryIds" not found' };
     const createCategory = await BlogPost.create({ userId: id, title, content });
@@ -29,7 +29,7 @@ const newPost = async ({ title, content, categoryIds }, token) => {
             categoryId: category, 
             postId: createCategory.dataValues.id, 
         });
-    }));
+    })); 
     return { type: null, message: createCategory };
 };
 

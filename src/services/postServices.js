@@ -1,8 +1,8 @@
-/* const jwt = require('jsonwebtoken'); */
-const { BlogPost, /* PostCategory,  */Category, User } = require('../models');
-/* require('dotenv/config');
- */
-/* const { JWT_SECRET } = process.env;
+ const jwt = require('jsonwebtoken'); 
+const { BlogPost, PostCategory, Category, User } = require('../models');
+ require('dotenv/config');
+ 
+const { JWT_SECRET } = process.env;
 
 const validationToken = (token) => {
   try {
@@ -11,16 +11,16 @@ const validationToken = (token) => {
   } catch (error) {
     return false;
   }
-}; */
+};
 
-/* const validationCategoryIds = async (categoryIds) => {
+const validationCategoryIds = async (categoryIds) => {
   const allCategories = await Category.findAll();
   return allCategories
     .every((category) => categoryIds.some((id) => category.dataValues.id === id));
 };
 
 const newPost = async ({ title, content, categoryIds }, token) => {
-  const { data: { dataValues: { id } } } = validationToken(token);
+  const { data: { id } } = validationToken(token);
   const result = await validationCategoryIds(categoryIds);
   if (!result) return { type: 'error', message: 'one or more "categoryIds" not found' };
   const createCategory = await BlogPost.create({ userId: id, title, content });
@@ -31,7 +31,7 @@ const newPost = async ({ title, content, categoryIds }, token) => {
     });
   }));
   return { type: null, message: createCategory };
-}; */
+}; 
 
 const getAllPost = async () => {
   const post = await BlogPost.findAll({
@@ -95,6 +95,7 @@ const getPostByQuery = async (query) => {
 };
 
 module.exports = {
+  newPost,
   getAllPost,
   getIdPost,
   editPost,

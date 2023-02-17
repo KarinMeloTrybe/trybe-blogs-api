@@ -1,13 +1,13 @@
 const postServices = require('../services/postServices');
 
-/* const newPost = async (request, response) => {
+const newPost = async (request, response) => {
     const { type, message } = await postServices
         .newPost(request.body, request.headers.authorization);
     if (type) {
         return response.status(400).json({ message });
     }
     return response.status(201).json(message);
-}; */
+};
 
 const getAllPost = async (_request, response) => {
     const { type, message } = await postServices.getAllPost();
@@ -42,13 +42,12 @@ const editPost = async (request, response) => {
 const deletePost = async (request, response) => {
     const { id } = request.params;
     const { user } = request;
-    console.log(user.id);
     const { type, message } = await postServices.getIdPost(id);
-    console.log(message);
     if (type) return response.status(404).json({ message: 'Post does not exist' });
     if (user.id !== message.dataValues.userId) {
         return response.status(401).json({ message: 'Unauthorized user' });
     }
+    console.log(user.id, message.dataValues.userId);
     await postServices.deletePost(id);
     return response.status(204).json();
 };
@@ -60,7 +59,7 @@ const getPostByQuery = async (request, response) => {
   };
 
     module.exports = {
-        /*  newPost, */
+         newPost,
         getAllPost,
         getIdPost,
         editPost,

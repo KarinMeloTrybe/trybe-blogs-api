@@ -1,22 +1,11 @@
-/* const express = require('express');
-
-const app = express();
-
-app.use(express.json());
-
-/* const { postSchema } = require('./schema'); */
-
-/* const validationPost = async (request, response, next) => {
-  const blogPost = request.body;
-  const { error } = postSchema.validate(blogPost);
-  if (error) {
-    return response
-      .status(400)
-      .json({ message: 'Some required fields are missing' });
+const validationPost = (request, response, next) => {
+  const { title, content, categoryIds } = request.body;
+  if (!title || !content || !categoryIds) {
+    return response.status(400).json({ message: 'Some required fields are missing' });
   }
-  next();
-}; */
+    return next();
+};
 
-/* module.exports = { 
+ module.exports = { 
     validationPost,
-};  */
+};

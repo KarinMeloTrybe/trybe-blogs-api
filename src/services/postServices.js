@@ -84,9 +84,20 @@ const deletePost = async (id) => {
   await BlogPost.destroy({ where: { id } });
 };
 
+const getPostByQuery = async (query) => {
+  const { message } = await getAllPost();
+  if (!query) {
+    return message;
+  }
+  const result = message.filter(({ title, content }) => title.includes(query)
+  || content.includes(query));
+  return result;
+};
+
 module.exports = {
   getAllPost,
   getIdPost,
   editPost,
   deletePost,
+  getPostByQuery,
 };

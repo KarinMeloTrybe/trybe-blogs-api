@@ -6,6 +6,8 @@ const { validationToken } = require('../middlewares/userMiddlewares');
 
 const postRoute = express.Router();
 
+postRoute.get('/search', validationToken, postController.getPostByQuery);
+
 /* postRoute.post('/', validationPost, validationToken, postController.newPost);
  */
 postRoute.get('/', validationToken, postController.getAllPost);

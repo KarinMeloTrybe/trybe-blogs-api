@@ -52,7 +52,28 @@ if (!post) return { type: 'error', message: 'Post Not Found' };
 return { type: null, message: post };
 };
 
+const getIdPost = async (id) => {
+  const post = await BlogPost.findOne({
+    where: { id },
+    include: [
+      {
+        model: User,
+        as: 'user',
+        attributes: { exclude: ['password'] },
+      },
+      {
+        model: Category,
+        as: 'categories',
+        through: { attributes: [] },
+      },
+    ],
+  });
+  if (!post) return { type: 'error', message: 'Post does not exist' };
+  return { type: null, message: post };
+  };
+
 module.exports = {
   newPost,
   getAllPost,
+  getIdPost,
 };

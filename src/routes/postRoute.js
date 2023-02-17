@@ -9,4 +9,6 @@ postRoute.post('/', validationPost, validationToken, postController.newPost);
 
 postRoute.get('/', validationToken, postController.getAllPost);
 
+postRoute.get('/:id', validationToken, postController.getIdPost);
+
 module.exports = { postRoute };

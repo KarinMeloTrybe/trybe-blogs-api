@@ -1,12 +1,12 @@
-const express = require('express');
+/* const express = require('express');
 
 const app = express();
 
 app.use(express.json());
 
-const { postSchema } = require('./schema');
+/* const { postSchema } = require('./schema'); */
 
-const validationPost = async (request, response, next) => {
+/* const validationPost = async (request, response, next) => {
   const blogPost = request.body;
   const { error } = postSchema.validate(blogPost);
   if (error) {
@@ -15,8 +15,8 @@ const validationPost = async (request, response, next) => {
       .json({ message: 'Some required fields are missing' });
   }
   next();
-};
+}; */
 
-module.exports = { 
+/* module.exports = { 
     validationPost,
-};
+};  */

@@ -1,13 +1,13 @@
 const postServices = require('../services/postServices');
 
-const newPost = async (request, response) => {
+/* const newPost = async (request, response) => {
     const { type, message } = await postServices
         .newPost(request.body, request.headers.authorization);
     if (type) {
         return response.status(400).json({ message });
     }
     return response.status(201).json(message);
-};
+}; */
 
 const getAllPost = async (_request, response) => {
     const { type, message } = await postServices.getAllPost();
@@ -26,8 +26,22 @@ const getIdPost = async (request, response) => {
     return response.status(200).json(message);
 };
 
+const editPost = async (request, response) => {
+    const { body } = request;
+    const { id } = request.params;
+    const { user } = request;
+    if (Number(id) !== Number(user.id)) {
+ return response
+    .status(401).json({ message: 'Unauthorized user' }); 
+}
+    const { type, message } = await postServices.editPost(body, id);
+    if (type) return response.sttaus(400).json({ message });
+    return response.status(200).json(message);
+};
+
 module.exports = {
-    newPost,
+    /*  newPost, */
     getAllPost,
     getIdPost,
+    editPost,
 };

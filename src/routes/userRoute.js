@@ -10,4 +10,6 @@ userRoute.get('/', validationToken, userController.getAllUser);
 
 userRoute.get('/:id', validationToken, userController.getUserId);
 
+userRoute.delete('/me', validationToken, userController.deletedMe);
+
 module.exports = { userRoute };

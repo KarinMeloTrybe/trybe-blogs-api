@@ -17,10 +17,16 @@ const getUserId = async (request, response) => {
 return response.status(200).json(user);
 };
 
+const deletedMe = async (request, response) => {
+    await userServices.deletedMe(request.user.id);
+    return response.status(204).json();
+  };
+
 module.exports = { 
     newUser,
     getAllUser,
     getUserId,
+    deletedMe,
 };
 
 /* request.user.id; */
